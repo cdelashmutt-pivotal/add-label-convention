@@ -32,6 +32,10 @@ import (
 )
 
 func conventionHandler(template *corev1.PodTemplateSpec, images []webhook.ImageConfig) ([]string, error) {
+	if template.ObjectMeta.Labels == nil {
+		template.ObjectMeta.Labels = map[string]string{}
+	}
+
 	template.ObjectMeta.Labels["business-unit"] = "gbs"
 	return []string{"add-bu-label"}, nil
 }
